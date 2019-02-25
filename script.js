@@ -1,24 +1,26 @@
 "use strict"
 
+class Node {
+    constructor() {
+        this.keys = new Map();
+        this.end = false;
+    }
 
-
-
-
-let Node = function() {
-    this.keys = new Map();
-    this.end = false;
-    this.setEnd = function() {
+    setEnd() {
         this.end = true;
-    };
-    this.isEnd = function() {
+    }
+
+    isEnd() {
         return this.end;
-    };
+    }
 };
 
-let Trie = function() {
-    this.root = new Node();
+class Trie {
+    constructor() {
+        this.root = new Node();
+    }
 
-    this.add = function(input, node = this.root) {
+    add(input, node = this.root) {
         if (input.length == 0) {
             node.setEnd();
             return;
@@ -28,9 +30,9 @@ let Trie = function() {
         } else {
             return this.add(input.substr(1), node.keys.get(input[0]));
         };
-    };
+    }
 
-    this.isWord = function (word) {
+    isWord(word) {
         let node = this.root;
         while(word.length > 1) {
             if (!node.keys.has(word[0])) {
@@ -44,7 +46,7 @@ let Trie = function() {
         true : false;
     };
 
-    this.print = function() {
+    print() {
         let words = new Array();
         let search = function(node = this.root, string) {
             if (node.keys.size != 0) {
@@ -61,7 +63,7 @@ let Trie = function() {
         };
         search(this.root, new String());
         return words.length > 0 ? words : null;
-    };
+    }
 };
 
 
